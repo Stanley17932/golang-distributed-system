@@ -1,15 +1,25 @@
 package main
 
-import "context"
+import (
+	"context"
+	"fmt"
+)
 
 type service struct {
 	store OrdersStore
 }
 
 func NewService(store OrdersStore) *service {
-	return &service{store}
+	return &service{store: store}
 }
 
-func (s *service) CreateOrder(context.Context) {
+func (s *service) CreateOrder(ctx context.Context) error {
+	err := s.store.Create(ctx)
+	if err != nil {
+		//Handle the erro
+		return err
+	}
+
+	fmt.Println("Order created successfully")
 	return nil
 }

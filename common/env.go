@@ -1,7 +1,12 @@
 package common
 
-func EnvString(key, fallback string) string{
-	if val, ok := syscall.Getenv(key), ok{
+import (
+	"syscall"
+)
+
+func EnvString(key, fallback string) string {
+	val, ok := syscall.Getenv(key)
+	if ok {
 		return val
 	}
 

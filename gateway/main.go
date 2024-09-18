@@ -5,11 +5,23 @@ import (
 	"net/http"
 
 	common "github.com/Stanley3970/commons"
+	"github.com/joho/godotenv"
 )
 
 var (
-	httpAddr = common.EnvString("HTTP_ADDR", ":8080")
+	httpAddr string
 )
+
+func init() {
+	// Load .env file manually
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("No .env file found, proceeding with default environment variables.")
+	}
+
+	// Set the HTTP address from environment variables or use default
+	httpAddr = common.EnvString("HTTP_ADDR", ":8080")
+}
 
 func main() {
 	mux := http.NewServeMux()
